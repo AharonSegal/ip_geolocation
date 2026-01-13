@@ -16,28 +16,29 @@ def insert_ip(list_ip : list[Item]):
     wrong_ip ,right_ip = clean_wrong_ip(ip_addresses)
     
     response = [get_info_ip(ip['ip']) for ip in right_ip]
-    
-    details_ip , no_details = clean_response(response)
-    
+    details_ip , no_details, http_fail = clean_response(response)
     # insert_to_database(details_ip)
     #TODO: INN=TEGRATE TO SERVER-B
-    return {'wrong ip':wrong_ip,'right ip':right_ip,'details ip':details_ip,'no details on ip':no_details}
+    return {'wrong ip':wrong_ip,'right ip':right_ip,'details ip':details_ip,'no details on ip':no_details, 'http fail':http_fail}
 
 
 def clean_response(ip_addresses:list[dict]):
     ip_with_detalis = []
     ip_no_details = []
+    ip_http_file = []
     for ip in ip_addresses:
         if ip['status'] =='fail' or not valdation_coordinates(ip['lon'],ip['lat']):
             ip_no_details.append(ip)
+        elif ip.get('massege'):
+            ip_http_file.append(ip)
         else:
             new_ip = {'ip':ip['query'],'coordinates':{ "latitude": ip['lat'], "longitude": ip['lon']}}
             ip_with_detalis.append(new_ip)
-    return ip_with_detalis, ip_no_details
+    return ip_with_detalis, ip_no_details, ip_http_file
 
 
 def valdation_coordinates(lon:float,lat:float)->bool:
-    # TODO: consider pydantic convertion
+    
     if lon > 180 or lon < -180:
         return False
     if lat > 90 or lat < -90:
@@ -45,11 +46,9 @@ def valdation_coordinates(lon:float,lat:float)->bool:
     return True
 
 
-def validation_http(response:list|dict):
-    # TODO: check for helth endpoint
-    if isinstance(response,dict):
-        if response.get('error'):
-            return {'massege':'http fail','detals':response}
+def validation_http(response:dict):
+    if response.get('error'):
+        return {'massege':'http fail'}.update(response)
     
 
 def validation_ip(ip:dict):
