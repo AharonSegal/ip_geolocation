@@ -1,24 +1,20 @@
-version: "3.9"
-
 services:
   redis:
     build:
       context: ./server-b
-      dockerfile: Dockerfile.redis
+      dockerfile: docker/Dockerfile.redis
     container_name: redis
     ports:
-      - "6379:6379"          
+      - "6379:6379"          # optional: expose Redis to host
     restart: unless-stopped
 
   server-b:
     build:
       context: ./server-b
-      dockerfile: app/Dockerfile
+      dockerfile: docker/Dockerfile.server_b
     container_name: server-b
-    env_file:
-      - .env      
     depends_on:
       - redis
     ports:
-      - "8000:8000"        
+      - "8000:8000"          # host:container
     restart: unless-stopped

@@ -31,7 +31,7 @@ git branch
 
 # Create a new branch
 git checkout -b title/branch_purpose
-git checkout -b route/update
+git checkout -b combine_servers/compose
 
 # Stage changes
 git add .
@@ -84,8 +84,7 @@ git checkout -b feature/login origin/feature/login
 
 # (Shortcut – Git creates the local branch automatically)
 git checkout feature/login
-git checkout feature/create-basic-files
-
+git checkout aharon/server-b
 # ------------------------------------------------------
 
 # Pull latest changes for your current branch

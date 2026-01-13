@@ -1,3 +1,6 @@
+# docker compose build 
+docker compose up --build
+
 # server-b init 
 
 cd server-b
@@ -7,45 +10,10 @@ pip install -r requirements.txt
 
 uvicorn app.main:app --reload --port 8000
 
-# local redis container cli build & communication
-##  Build & start Redis container
-```bash
-docker build -f Dockerfile.redis -t redis-local .
-```
-- Run the container:
-```bash
-docker run -d \
-  --name redis \
-  -p 6379:6379 \
-  redis-local
-```
-- Redis is now running on:
-    localhost:6379
-
-## Verify Redis is running
-
-```bash
-docker ps
-```
-Optional test:
-```bash
-docker exec -it redis redis-cli ping
-```
-
-```bash
-# open redis-cli inside the container
-docker exec -it redis redis-cli
-# inside redis-cli: 127.0.0.1:6379>
-KEYS *
-GET 1.1.1.1
-EXIT
-```
-
 2. **Service B** – Coordinate storage and retrieval.
     HTTP `GET` request to **Service A** for new IP
     HTTP `GET` request to **USER** for saved IP
     HTTP `POST` request to **Redis** to save IP
-
 
 # gets fro server a 
 [
@@ -84,6 +52,11 @@ Responsibilities per file:
   - Container definition for Service B.
 
 
+
+
+
+
+for runing tha app local and redis in container
 ##  Build & start Redis container
 ```bash
 docker build -f Dockerfile.redis -t redis-local .
@@ -127,33 +100,36 @@ Visit:
 GET /health/redis-test
 ```
 
----
+# local redis container cli build & communication
+##  Build & start Redis container
+```bash
+docker build -f Dockerfile.redis -t redis-local .
+```
+- Run the container:
+```bash
+docker run -d \
+  --name redis \
+  -p 6379:6379 \
+  redis-local
+```
+- Redis is now running on:
+    localhost:6379
 
-## 5️⃣ When **both FastAPI & Redis run in Docker**
-
-Use a Docker network **and keep `REDIS_HOST=redis`**:
+## Verify Redis is running
 
 ```bash
-docker network create app-net
-docker run -d --name redis --network app-net redis-local
-docker run -d --name server-b --network app-net -e REDIS_HOST=redis server-b-image
+docker ps
+```
+Optional test:
+```bash
+docker exec -it redis redis-cli ping
 ```
 
----
-
-## 🔑 Rule of thumb
-
-| FastAPI location | REDIS_HOST   |
-| ---------------- | ------------ |
-| Local machine    | localhost    |
-| Docker container | redis        |
-| Docker Compose   | service name |
-
----
-
-If you want, I can give you:
-
-* **docker-compose.yml**
-* Redis as **StatefulSet (K8s)**
-* Redis **health checks**
-* Connection pooling best practice
+```bash
+# open redis-cli inside the container
+docker exec -it redis redis-cli
+# inside redis-cli: 127.0.0.1:6379>
+KEYS *
+GET 1.1.1.1
+EXIT
+```
