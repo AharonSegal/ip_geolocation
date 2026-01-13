@@ -3,16 +3,17 @@ import requests
 from schemas import  IPModel, Item
 from pydantic import TypeAdapter, ValidationError
 
-router = APIRouter()
+
 IP_API_ADDRESS = "http://ip-api.com/json/"
 FIELDES = "?fields=status,message,lat,lon,query"
+
+router = APIRouter()
+
 
 @router.post("/ip")
 def insert_ip(list_ip : list[Item]):
     ip_addresses = [ip.model_dump(mode='json') for ip in list_ip]
-    ip_category = clean_wrong_ip(ip_addresses)
-    wrong_ip = ip_category[0]
-    right_ip = ip_category[1]
+    wrong_ip ,right_ip = clean_wrong_ip(ip_addresses)
     
     response = [get_info_ip(ip['ip']) for ip in right_ip]
     
@@ -20,6 +21,7 @@ def insert_ip(list_ip : list[Item]):
     
     # insert_to_database(details_ip)
     return {'wrong ip':wrong_ip,'right ip':right_ip,'no details on ip':no_details}
+
 
 def clean_response(ip_addresses:list[dict]):
     ip_with_detalis = ip_addresses.copy()
@@ -49,11 +51,9 @@ def validation_http(response:list|dict):
 def validation_ip(ip:dict):
     adapter = TypeAdapter(IPModel)
     try: 
- 
         validated_data = adapter.validate_python(ip)
-        
         return validated_data.model_dump(mode='json')
-    except ValidationError as e:
+    except ValidationError:
         return {"ip": ip, "error": 'not valid ip'}
 
 
