@@ -1,20 +1,31 @@
 services:
   redis:
     build:
-      context: ..                    # go back to ip_geolocation/
+      context: ..
       dockerfile: docker/Dockerfile.redis
     container_name: redis
     ports:
-      - "6379:6379"                   # optional: expose Redis to host
+      - "6379:6379"
     restart: unless-stopped
 
   server-b:
     build:
-      context: ..                     # go back to ip_geolocation/
+      context: ..
       dockerfile: docker/Dockerfile.server_b
     container_name: server-b
     depends_on:
       - redis
     ports:
-      - "8000:8000"                   # host:container
+      - "8000:8000"
+    restart: unless-stopped
+
+  server-a:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.server_a
+    container_name: server-a
+    depends_on:
+      - server-b
+    ports:
+      - "8080:8000"      # host 8080 -> container 8000
     restart: unless-stopped

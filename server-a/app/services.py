@@ -1,6 +1,6 @@
 from pydantic import TypeAdapter, ValidationError
 import requests
-from schemas import IPModel
+from app.schemas import IPModel
 
 IP_API_ADDRESS = "http://ip-api.com/json/"
 FIELDES = "?fields=status,message,lat,lon,query"
