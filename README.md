@@ -10,9 +10,10 @@
     HTTP `POST` request to **Service B**, including the resulting **coordinates**
 
 2. **Service B** – Coordinate storage and retrieval.
-    HTTP `GET` request to **Service A** for new IP
-    HTTP `GET` request to **USER** for saved IP
-    HTTP `POST` request to **Redis** to save IP
+    `POST` from Service A with coordinates to store.
+    `GET` from User to retrieve stored coordinates.
+    write to Redis
+    read from Redis 
 
 3. **Redis** – Data store for coordinates.
 
@@ -35,7 +36,9 @@ There are two main data flows:
 
 **SERVER B**
 7. **Service B** receives the request and performs VALIDATIONS
-TODO: WHAT VALIDATIONS **basic data validation**.
+  Ensure the external geolocation service returned:
+    Lat/long in correct ranges (-90 ≤ lat ≤ 90, -180 ≤ lon ≤ 180).
+    
 8. **Service B** stores the coordinates in **Redis**, the data store.
 9. The process ends when the data is successfully stored in the data store.
 
