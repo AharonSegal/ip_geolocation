@@ -18,7 +18,6 @@ def insert_ip(list_ip : list[Item]):
     
     details_ip , no_details = clean_response(response)
     
-    
     # insert_to_database(details_ip)
     return {'wrong ip':wrong_ip,'right ip':right_ip,'no details on ip':no_details}
 
@@ -26,11 +25,20 @@ def clean_response(ip_addresses:list[dict]):
     ip_with_detalis = ip_addresses.copy()
     ip_no_details = ip_addresses.copy()
     for ip in ip_addresses:
-        if ip['status'] =='fail':
+        if ip['status'] =='fail' or not valdation_coordinates(ip['lot'],ip['lat']):
             ip_with_detalis.remove(ip)
         else:
             ip_no_details.remove(ip)
     return ip_with_detalis, ip_no_details
+
+
+def valdation_coordinates(lon:float,lat:float)->bool:
+    if lon > 180 or lon < -180:
+        return False
+    if lat > 90 or lat < -90:
+        return False
+    return True
+
 
 def validation_http(response:list|dict):
     if isinstance(response,dict):
