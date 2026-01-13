@@ -20,6 +20,7 @@ def insert_ip(list_ip : list[Item]):
     details_ip , no_details = clean_response(response)
     
     # insert_to_database(details_ip)
+    #TODO: INN=TEGRATE TO SERVER-B
     return {'wrong ip':wrong_ip,'right ip':right_ip,'details ip':details_ip,'no details on ip':no_details}
 
 
@@ -36,6 +37,7 @@ def clean_response(ip_addresses:list[dict]):
 
 
 def valdation_coordinates(lon:float,lat:float)->bool:
+    # TODO: consider pydantic convertion
     if lon > 180 or lon < -180:
         return False
     if lat > 90 or lat < -90:
@@ -44,6 +46,7 @@ def valdation_coordinates(lon:float,lat:float)->bool:
 
 
 def validation_http(response:list|dict):
+    # TODO: check for helth endpoint
     if isinstance(response,dict):
         if response.get('error'):
             return {'massege':'http fail','detals':response}
@@ -68,6 +71,7 @@ def get_info_ip(ip:str):
 
 
 def insert_to_database(data:list):
+    # TODO: HERE IS THE SERVE-1 IMPLEMENTATION
     requests.post()
 
 def clean_wrong_ip(ip_addresses:list[dict]) -> tuple[list]:
