@@ -20,17 +20,18 @@ def insert_ip(list_ip : list[Item]):
     details_ip , no_details = clean_response(response)
     
     # insert_to_database(details_ip)
-    return {'wrong ip':wrong_ip,'right ip':right_ip,'no details on ip':no_details}
+    return {'wrong ip':wrong_ip,'right ip':right_ip,'details ip':details_ip,'no details on ip':no_details}
 
 
 def clean_response(ip_addresses:list[dict]):
-    ip_with_detalis = ip_addresses.copy()
-    ip_no_details = ip_addresses.copy()
+    ip_with_detalis = []
+    ip_no_details = []
     for ip in ip_addresses:
-        if ip['status'] =='fail' or not valdation_coordinates(ip['lot'],ip['lat']):
-            ip_with_detalis.remove(ip)
+        if ip['status'] =='fail' or not valdation_coordinates(ip['lon'],ip['lat']):
+            ip_no_details.append(ip)
         else:
-            ip_no_details.remove(ip)
+            new_ip = {'ip':ip['query'],'coordinates':{ "latitude": ip['lat'], "longitude": ip['lon']}}
+            ip_with_detalis.append(new_ip)
     return ip_with_detalis, ip_no_details
 
 
