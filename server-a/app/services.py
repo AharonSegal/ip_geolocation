@@ -1,6 +1,6 @@
 from pydantic import TypeAdapter, ValidationError
 import requests
-from schemas import IPModel
+from app.schemas import IPModel
 
 
 
@@ -71,6 +71,6 @@ def validation_ip(ip:dict):
 
 def insert_to_database(data:list):
     # TODO: HERE IS THE SERVE-1 IMPLEMENTATION
-    requests.post()
+    requests.post("http://127.0.0.1:8080/list-ip-from-server-a",json=data)
 
 

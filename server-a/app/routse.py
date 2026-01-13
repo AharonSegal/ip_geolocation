@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from schemas import   Item
-from services import *
+from app.schemas import   Item
+from app.services import *
 
 
 router = APIRouter()
@@ -15,8 +15,7 @@ def insert_ip(list_ip : list[Item]):
     response = [get_info_ip(ip['ip']) for ip in right_ip]
     details_ip , no_details, http_fail = clean_response(response)
 
-    # insert_to_database(details_ip)
-    #TODO: INN=TEGRATE TO SERVER-B
+    insert_to_database(details_ip)
     
     return {'wrong ip':wrong_ip,'right ip':right_ip,'details ip':details_ip,'no details on ip':no_details, 'http fail':http_fail}
 
