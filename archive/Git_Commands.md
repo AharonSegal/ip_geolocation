@@ -31,7 +31,7 @@ git branch
 
 # Create a new branch
 git checkout -b title/branch_purpose
-git checkout -b combine_servers/compose
+git checkout -b final/k8
 
 # Stage changes
 git add .
@@ -41,7 +41,7 @@ git commit -m "Descriptive commit message"
 
 # Push branch to remote
 git push -u origin title/branch_purpose
-git push -u origin backend/complete_local_version
+git push -u origin combine_servers/compose
 
 # Switch between branches
 git checkout main

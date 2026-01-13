@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-svc
+  namespace: ip-geolocation          # optional, remove or change if not using this namespace
+spec:
+  clusterIP: None                    # headless service for StatefulSet
+  selector:
+    app: redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: ip-geolocation          # same namespace as the Service
+spec:
+  serviceName: redis-svc
+  replicas: 3
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis                   # must match selector.matchLabels
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+              name: redis
+          volumeMounts:
+            - name: redis-data       # must match volumeClaimTemplates.metadata.name
+              mountPath: /data       # standard Redis data dir
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: redis-storage
+        resources:
+          requests:
+            storage: 100Mi
