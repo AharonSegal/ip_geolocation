@@ -1,5 +1,31 @@
 # ip_geolocation
 
+# Local run 
+
+cd docker
+docker compose up --build
+
+
+test 
+
+[
+  {
+    "ip": "2.2.2.2",
+    "coordinates": {
+      "latitude": 40.22228,
+      "longitude": -74.2222
+    }
+  },
+  {
+    "ip": "2.2.2.2",
+    "coordinates": {
+      "latitude": 40.22228,
+      "longitude": -74.2222
+    }
+  }
+]
+
+
 # Black Coordinates List
 
 ## Main Components

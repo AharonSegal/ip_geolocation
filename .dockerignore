@@ -1,0 +1,53 @@
+# VCS
+.git
+.gitignore
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+.env.* 
+.venv/
+env/
+ENV/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.iml
+
+# OS / misc
+.DS_Store
+Thumbs.db
+
+# Testing / coverage
+pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+logs/
+
+# Byte-compiled or temporary
+*.tmp
+*.swp
+*.swo
+
+# Archive / docs build artifacts (optional – adjust if needed)
+archive/
+dist/
+build/
+
+# Node / frontend (if ever added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
