@@ -7,7 +7,7 @@ router = APIRouter()
 IP_API_ADDRESS = "http://ip-api.com/json/"
 FIELDES = "?fields=status,message,lat,lon,query"
 
-@router.post("/ip",tags='ip')
+@router.post("/ip")
 def insert_ip(list_ip : list[Item]):
     ip_addresses = [ip.model_dump(mode='json') for ip in list_ip]
     ip_category = clean_wrong_ip(ip_addresses)
