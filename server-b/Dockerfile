@@ -1,13 +1,12 @@
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
-COPY server-b/requirements.txt .
+COPY  requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code: server-b/app -> /app/app
-COPY server-b/app ./app
+COPY ./app ./app
 
 EXPOSE 8000
 
