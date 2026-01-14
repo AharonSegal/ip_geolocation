@@ -66,8 +66,3 @@ def validation_ip(ip:dict):
 
 
 
-def insert_to_database(data:list):
-    # TODO: HERE IS THE SERVE-1 IMPLEMENTATION
-    requests.post()
-
-
