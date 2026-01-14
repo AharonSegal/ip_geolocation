@@ -25,5 +25,9 @@ spec:
               value: "8000"
             - name: SERVER_B_TIMEOUT
               value: "5"
+            - name: "INFO_GEOLOCATION_WEBSITE"
+              value: "http://ip-api.com/json/"
+            - name: "FIELDES"
+              value: "?fields=status,message,lat,lon,query"
             
              

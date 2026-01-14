@@ -1,11 +1,12 @@
 from pydantic import TypeAdapter, ValidationError
 import requests
 from app.schemas import IPModel
+import os
 
-IP_API_ADDRESS = "http://ip-api.com/json/"
-FIELDES = "?fields=status,message,lat,lon,query"
+INFO_GEOLOCATION_WEBSITE = os.getenv("INFO_GEOLOCATION_WEBSITE","http://ip-api.com/json/")
+FIELDES = os.getenv("FIELDES","?fields=status,message,lat,lon,query")
 
-def clean_wrong_ip(ip_addresses:list[dict]) -> tuple[list]:
+def validate_and_split_ips(ip_addresses:list[dict]) -> tuple[list]:
     validated_ips = [validation_ip(ip) for ip in ip_addresses]
     wrong_ip = []
     right_ip = []
@@ -17,7 +18,7 @@ def clean_wrong_ip(ip_addresses:list[dict]) -> tuple[list]:
     return wrong_ip, right_ip
 
 
-def get_info_ip(ip:str):
+def fetch_geolocation_data(ip:str):
     try:
         response = requests.get(IP_API_ADDRESS + ip + FIELDES)
         response.raise_for_status()
@@ -25,7 +26,7 @@ def get_info_ip(ip:str):
     except requests.exceptions.HTTPError as e:
         return {"error":e}
     
-def clean_response(ip_addresses:list[dict]):
+def format_geolocation_results(ip_addresses:list[dict]):
     ip_with_detalis = []
     ip_no_details = []
     ip_http_file = []
