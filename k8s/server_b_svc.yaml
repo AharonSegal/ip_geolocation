@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-b-service
+spec:
+  type: ClusterIP      # only internal interaction
+  selector:
+    app: server-b-label
+  ports:
+    - port: 8000        # Service port inside cluster
+      targetPort: 8080  # containerPort in server-a pods

@@ -2,11 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis-svc
-  labels:
-    app: redis-svc
 spec:
-  ports:
-  - port: 80
-  clusterIP: None
+  clusterIP: None                   # headless Service for StatefulSet
   selector:
-    app: redis-svc
+    app: redis-label
+  ports:
+    - port: 6379
+      targetPort: 6379

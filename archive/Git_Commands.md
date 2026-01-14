@@ -19,7 +19,7 @@ git push -u origin main
 # ╚══════════════════════════════════════════════════════╝
 """
 git add .                    
-git commit -m " "      
+git commit -m "yaml start"      
 git push                     
 
 # ╔══════════════════════════════════════════════════════╗
@@ -41,7 +41,7 @@ git commit -m "Descriptive commit message"
 
 # Push branch to remote
 git push -u origin title/branch_purpose
-git push -u origin combine_servers/compose
+git push -u origin final/k8
 
 # Switch between branches
 git checkout main

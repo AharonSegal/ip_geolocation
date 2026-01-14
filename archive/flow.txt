@@ -1,0 +1,69 @@
++-----------------+
+| Local run       |
++-----------------+
+
+python -m venv venv
+source venv/Scripts/activate
+pip install -r requirements.txt
+streamlit run main.py
+curl http://localhost:8501/docs
+
++-----------------+
+| GIT COMMANDS    |
++-----------------+
+
+git init
+git add .
+git commit -m "init"
+git push -u origin main
+
+git checkout main
+git checkout -b dev/Docker_build
+git pull
+
+git push -u origin dev/Docker_build
+git push
+
+git merge main
+git merge dev/Docker_build
+
+git status                     
+
++-----------------+
+| Docker COMMANDS |
++-----------------+
+
+docker ps -a
+docker build --no-cache -t aharonsegal/streamlit:v1 .
+docker images
+docker run -d -p 8080:8080 --name streamlit-containerr aharonsegal/streamlit:v1
+curl http://localhost:8080/docs
+docker push ""aharonsegal/streamlit:v1""
+
+
++---------------------+
+| Kubernetes COMMANDS |
++---------------------+
+
+# START
+minikube start
+kubectl get nodes
+kubectl config current-context
+
+# POD
+kubectl apply -f pod.yaml
+
+kubectl describe pod streamlit
+kubectl get pods 
+kubectl logs streamlit-5f64cbccbf-x7xj4 --tail=100
+
+# SERVICE
+kubectl apply -f service.yaml
+
+kubectl describe service streamlit-service
+kubectl get svc        
+kubectl get deploy    
+
+# RUN
+minikube service streamlit-service
+

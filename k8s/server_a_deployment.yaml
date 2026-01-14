@@ -1,0 +1,44 @@
+# Deployment name: server-a-deployment
+#     - Name of the Deployment object itself.
+#     - Used in commands like: kubectl get deployment server-a-deployment
+#     - Pods created by this Deployment will have names like:
+#         server-a-deployment-7c8fdd7c9d-abcde
+
+# Pod labels: server-a-label 
+#     - Labels attached to Pods created by this Deployment.
+#     - Define which pods belong to the Deployment and to Services.
+#     - spec.selector.matchLabels.app:
+#         "This Deployment manages all pods that have app=server-a-label".
+#     - template.metadata.labels.app:
+#         "When creating a new pod, give it app=server-a-label".
+
+
+# Container name: server-a-pod
+#     - Name of the container inside each pod (not the pod name).
+#     - Used for commands like:
+#         kubectl logs <pod-name> -c server-a-pod
+#         kubectl exec -it <pod-name> -c server-a-pod -- sh
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-a-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-a-label 
+  template:
+    metadata:
+      labels:
+        app: server-a-label
+    spec:
+      containers:
+      - name: server-a-pod
+        image: moshe5434/black-project:v1  # server-a
+        env:
+            - name: SERVICE_B_URL
+              value: "http://server-b:8000/list-ip-from-server-a"
+        ports:                    # not strictly required, but very good practice
+            containerPort: 8000   # matches uvicorn command inside the container
+
