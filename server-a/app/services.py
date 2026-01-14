@@ -20,7 +20,7 @@ def validate_and_split_ips(ip_addresses:list[dict]) -> tuple[list]:
 
 def fetch_geolocation_data(ip:str):
     try:
-        response = requests.get(IP_API_ADDRESS + ip + FIELDES)
+        response = requests.get(INFO_GEOLOCATION_WEBSITE + ip + FIELDES)
         response.raise_for_status()
         return response.json()
     except requests.exceptions.HTTPError as e:
