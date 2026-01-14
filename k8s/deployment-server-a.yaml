@@ -18,5 +18,12 @@ spec:
           image: moshe5434/black-project:v1
           ports:
             - containerPort: 8000
+          env:
+            - name: SERVER_B_HOST
+              value: server-b
+            - name: SERVER_B_PORT
+              value: "8000"
+            - name: SERVER_B_TIMEOUT
+              value: "5"
             
              
