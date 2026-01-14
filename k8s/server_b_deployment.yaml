@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: server-b-pod
-        image: amoshe5434/black-project:v2 =server-b
+        image: aharonsegal/server-b:latest
         env:
             - name: REDIS_HOST
               value: "redis-svc"         # name of Redis Service

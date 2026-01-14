@@ -40,4 +40,3 @@ spec:
   ports:
     - port: 8000        # Service port inside cluster
       targetPort: 8000  # containerPort in server-a pods
-      nodePort: 30800   # optional for NodePort (or let K8s choose if omitted)

@@ -35,10 +35,11 @@ spec:
     spec:
       containers:
       - name: server-a-pod
-        image: moshe5434/black-project:v1  # server-a
+        image: aharonsegal/server-a:latest
         env:
             - name: SERVICE_B_URL
-              value: "http://server-b:8000/list-ip-from-server-a"
+              # service name / the endpoint in that service
+              value: "http://server-b-service:8000/list-ip-from-server-a"
         ports:                    # not strictly required, but very good practice
-            containerPort: 8000   # matches uvicorn command inside the container
+          - containerPort: 8000   # matches uvicorn command inside the container
 

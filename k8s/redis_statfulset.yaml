@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-statfulset
+  name: redis-statefulset       
 spec:
-  serviceName: redis-svc            # must match the headless Service name
+  serviceName: redis-svc         
   replicas: 1
   selector:
     matchLabels:
@@ -21,14 +21,13 @@ spec:
             - containerPort: 6379
           volumeMounts:
             - name: redis-data
-              mountPath: /data       # standard redis data dir
+              mountPath: /data     # standard Redis data dir
   volumeClaimTemplates:
     - metadata:
         name: redis-data
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: redis-storage
         resources:
           requests:
             storage: 100Mi

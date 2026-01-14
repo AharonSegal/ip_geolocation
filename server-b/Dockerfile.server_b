@@ -1,0 +1,22 @@
+# docker build -f Dockerfile.server_b -t aharonsegal/server-b:latest .
+# docker push aharonsegal/server-b:latest
+
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code: app -> /app/app
+COPY app ./app
+
+EXPOSE 8000
+
+# Default env (overridden by .env / compose)
+ENV REDIS_HOST=redis \
+    REDIS_PORT=6379 \
+    REDIS_DB=0
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
