@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: server-b 
+  labels:
+   app: deploy-server-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-b
+  template:
+    metadata:
+      labels:
+        app: api-b
+    spec:
+       containers:
+         - name: con-b
+           image: moshe5434/black-project:v2 
+           ports:
+            - containerPort: 8000
+           env:
+            - name: REDIS_HOST
+              value: "redis" # שם ה-Service של ה-Redis
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_DB
+              value: "0"
