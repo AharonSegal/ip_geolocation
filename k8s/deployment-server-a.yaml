@@ -1,18 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: server-a
-    labels: 
-        app: deploy-server-a 
+    name: server-a-deploy
 spec:
   replicas: 1
   selector:    
     matchLabels:
-       app: api-a 
+       app: server-a 
   template:
     metadata:
+      name: pod-a
       labels:
-        app: api-a
+        app: server-a
     spec:
       containers:
         - name: con-a

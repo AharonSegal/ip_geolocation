@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: redis
-  serviceName: "redis-service"
+  serviceName: "redis"
   replicas: 1
   template:
     metadata:

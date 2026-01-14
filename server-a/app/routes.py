@@ -12,7 +12,7 @@ router = APIRouter()
 # Service B URL
 SERVICE_B_URL = os.getenv(
     "SERVICE_B_URL",
-    "http://server-b:8000/list-ip-from-server-a",  
+    "http://service-b:8000/list-ip-from-server-a",  
 )
 
 
